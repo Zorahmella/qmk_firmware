@@ -30,6 +30,13 @@
 // COL06   COL05   COL07   COL04   COL03   COL02   COL01   COL00   N/A     COL14   COL13   COL12   COL11   COL10   COL09   COL08
 #define COLS {0x0080, 0x0040, 0x0020, 0x0010, 0x0008, 0x0002, 0x0001, 0x0004, 0x8000, 0x4000, 0x2000, 0x1000, 0x0800, 0x0400, 0x0200}
 
+// ADC pin settings
+#define VSEN_PIN GP29
+#define ISEN_PIN GP28
+#define VSEN_MAX 5500 // 5.1V
+#define ISEN_MAX 3000 // 3A
+#define ADC_MAX 1023 // 10 bit ADC max number
+
 // TUSB321 pin settings
 #define TUSB_OUT1_PIN GP27
 #define TUSB_OUT2_PIN GP26
@@ -41,7 +48,6 @@
 // ILIM EN settings
 #define ILIM_1500MA_PIN GP24
 #define ILIM_3000MA_PIN GP23
-#define USB_MAX_POWER_CONSUMPTION 500
 
 // SPI settings
 #define POINTING_DEVICE_CS_PIN GP14
