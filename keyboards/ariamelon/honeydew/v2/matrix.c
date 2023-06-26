@@ -3,9 +3,11 @@
 #include "wait.h"
 #include "spi_master.h"
 
+// Constant arrays for storing matrixs values
 static const uint16_t col_values[MATRIX_COLS] = COLS;
 static const pin_t row_pins[MATRIX_ROWS] = ROWS;
 
+// Function for reading rows
 static inline uint8_t read_rows(void) {
     uint8_t r = 0;
 

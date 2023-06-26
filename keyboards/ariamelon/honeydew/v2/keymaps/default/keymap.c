@@ -13,7 +13,9 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
+#ifdef CONSOLE_ENABLE
+#   include "print.h"
+#endif
 #include QMK_KEYBOARD_H
 
 enum keymap_layers {
@@ -24,7 +26,10 @@ enum keymap_layers {
 
 enum custom_keycodes {
     PRNTSCR = SAFE_RANGE,
+    RGB_VII
 };
+
+uint8_t MAX_BRIGHTNESS;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
@@ -45,29 +50,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [_CONFIG] = LAYOUT(
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        _______, XXXXXXX, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,
+        XXXXXXX, RGB_VAI, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        _______, RGB_VAD, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      RGB_RMOD,RGB_TOG, RGB_MOD,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,          QK_BOOT,          XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
+        XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
-
-// Hotkeys and macros
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    switch (keycode) {
-        case PRNTSCR:
-            if (record->event.pressed) {
-                register_code(KC_LGUI);
-                register_code(KC_LSFT);
-                tap_code(KC_S);
-                unregister_code(KC_LSFT);
-                unregister_code(KC_LGUI);
-            }
-            break;
-    }
-  return true;
-}
 
 // Encoder map
 #if defined(ENCODER_MAP_ENABLE)
@@ -78,8 +67,90 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+void keyboard_pre_init_user(void) {
+    // TUSB321 pin initialization
+    setPinInput(TUSB_OUT1_PIN);
+    setPinInput(TUSB_OUT2_PIN);
+
+    // ILIM fault pin initialization
+    setPinInput(BOARD_ILIM_FLT_PIN);
+    setPinInput(RGB_ILIM_FLT_PIN);
+
+    // ILIM EN pin initialization
+    setPinOutput(ILIM_1500MA_PIN);
+    writePinLow(ILIM_1500MA_PIN);
+    setPinOutput(ILIM_3000MA_PIN);
+    writePinLow(ILIM_3000MA_PIN);
+
+    // RGB EN pin initialization
+    setPinOutput(RGB_EN_PIN);
+    writePinHigh(RGB_EN_PIN);
+    #ifdef CONSOLE_ENABLE
+        debug_enable = true;
+        debug_keyboard = true;
+    #endif
+}
+
 void keyboard_post_init_user(void) {
     debug_enable = true;
-    debug_matrix = true;
-    debug_keyboard = true;
+    // Reads in values of TUSB321
+    uint8_t TUSB_OUT1 = readPin(TUSB_OUT1_PIN);
+    uint8_t TUSB_OUT2 = readPin(TUSB_OUT2_PIN);
+        if (TUSB_OUT1 == 0){
+        // 1.5A capable PSU is detected
+        writePinHigh(ILIM_1500MA_PIN);
+        MAX_BRIGHTNESS = 127;
+        if (TUSB_OUT2 == 0){
+            // 3A capable PSU is detected
+            writePinHigh(ILIM_3000MA_PIN);
+            MAX_BRIGHTNESS = 255;
+        }
+    } else {
+        MAX_BRIGHTNESS = 63;
+    }
+
+    rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), 63);
+
+
+
+    // Enables RGB if the RGB matrix is enabled
+    if (rgb_matrix_is_enabled()){
+        writePinLow(RGB_EN_PIN);
+    }
+}
+
+// Hotkeys and macros
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    switch (keycode) {
+        // Toggles RGB_EN_PIN depending on state of RGB matrix
+        case RGB_TOG:
+            if (record->event.pressed) {
+                if (rgb_matrix_is_enabled()){
+                    writePinHigh(RGB_EN_PIN);
+                } else {
+                    writePinLow(RGB_EN_PIN);
+                }
+            }
+            return true;
+
+        // Snipping tool macro
+        case PRNTSCR:
+            if (record->event.pressed) {
+                register_code(KC_LGUI);
+                register_code(KC_LSFT);
+                tap_code(KC_S);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LGUI);
+            }
+            return true;
+        default:
+            return true;
+    }
+}
+
+void housekeeping_task_user(void) {
+    // Limits max brightness depending on board power limit
+    if (rgb_matrix_get_val() > MAX_BRIGHTNESS){
+        rgb_matrix_sethsv(rgb_matrix_get_hue(), rgb_matrix_get_sat(), MAX_BRIGHTNESS);
+    }
 }

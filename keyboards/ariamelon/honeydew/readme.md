@@ -21,6 +21,5 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
 * **Physical dip switch**: Unplug the keyboard, move the DIP switch on the bottom to the on position then plug in the keyboard.
 * **Physical reset button**: Double tap the reset button on the bottom of the keyboard.

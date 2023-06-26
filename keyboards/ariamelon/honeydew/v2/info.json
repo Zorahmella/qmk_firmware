@@ -46,7 +46,7 @@
                 { "label": "SW48",  "matrix": [2, 12], "x": 12, "y": 2 },
                 { "label": "SW53",  "matrix": [2, 13], "x": 13, "y": 2 },
                 { "label": "SW58",  "matrix": [2, 14], "x": 14, "y": 2 },
-                { "label": "SW4",   "matrix": [3, 0], "x": 0, "y": 4 },
+                { "label": "SW4",   "matrix": [3, 0], "x": 0, "y": 3 },
                 { "label": "SW9",   "matrix": [3, 1], "x": 1, "y": 3 },
                 { "label": "SW14",  "matrix": [3, 2], "x": 2, "y": 3 },
                 { "label": "SW19",  "matrix": [3, 3], "x": 3, "y": 3 },
@@ -80,6 +80,7 @@
 
     "rgb_matrix": {
         "driver": "WS2812",
+        "max_brightness": 32,
         "layout": [
             { "flags": 1, "matrix": [0, 0], "x": 20, "y": 0 },
             { "flags": 4, "matrix": [0, 1], "x": 34, "y": 4 },
