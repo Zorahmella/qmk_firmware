@@ -1,6 +1,4 @@
-# honeydew
-
-![honeydew](https://raw.githubusercontent.com/Ariamelon/Honeydew/main/Showcase/Render-Case.png)
+# Honeydew
 
 ~60% 63-key QMK-compatible unsplit ergonomic keyboard.
 
@@ -21,5 +19,6 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 Enter the bootloader in 3 ways:
 
-* **Physical dip switch**: Unplug the keyboard, move the DIP switch on the bottom to the on position then plug in the keyboard.
-* **Physical reset button**: Double tap the reset button on the bottom of the keyboard.
+* **Physical dip switch**: Unplug the keyboard, move the DIP switch next to the USB-C port to the on position then plug in the keyboard. Move the DIP switch back afterwards to use it normally again.
+* **Physical reset button**: Double press the reset button on the bottom of the keyboard.
+* **Dip switch + reset button**: Move the DIP switch next to the USB-C port to the on position then press the reset button. Move the DIP switch back afterwards to use it normally again.
