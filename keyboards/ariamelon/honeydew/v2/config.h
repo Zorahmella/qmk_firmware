@@ -1,4 +1,4 @@
-/* Copyright 2023 Ariamelon
+/* Copyright 2023 Aria Tso (@Ariamelon)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -13,8 +13,14 @@
  * You should have received a copy of the GNU General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-
 #pragma once
+
+#ifdef CONSOLE_ENABLE
+#   undef PRINTF_SUPPORT_DECIMAL_SPECIFIERS
+#   define PRINTF_SUPPORT_DECIMAL_SPECIFIERS 1
+#endif
+
+#define SYSTEM_TIMEOUT 30000
 
 // Matrix settings, must be done here due to custom matrix
 #define MATRIX_ROWS 5
@@ -33,8 +39,8 @@
 // ADC pin settings
 #define VSEN_PIN GP29
 #define ISEN_PIN GP28
-#define VSEN_MAX 5500 // 5.1V
-#define ISEN_MAX 3000 // 3A
+#define VSEN_MAX 5.0 // 5.0V
+#define ISEN_MAX 3.0 // 3A
 #define ADC_MAX 1023 // 10 bit ADC max number
 
 // TUSB321 pin settings
@@ -49,19 +55,37 @@
 #define ILIM_1500MA_PIN GP24
 #define ILIM_3000MA_PIN GP23
 
-// SPI settings
+// Pointing device settings
 #define POINTING_DEVICE_CS_PIN GP14
+#define POINTING_DEVICE_MOTION_PIN GP15
 
-/*
+// Cirque settings
+#define POINTING_DEVICE_TASK_THROTTLE_MS 10
+#define POINTING_DEVICE_DRIVER cirque_pinnacle_spi
+#define POINTING_DEVICE_ROTATION_90
+#define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
+#define CIRQUE_PINNACLE_TAP_ENABLE
+#undef CIRQUE_PINNACLE_ATTENUATION
+#define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X
+
 // QP OLED settings
-#define DISPLAY_RST GP
-#define DISPLAY_CS GP
-#define DISPLAY_DC GP
-*/
+#define SSD1351_WIDTH 128
+#define SSD1351_HEIGHT 128
+#define SSD1351_SPI_DIVISOR 16
+#define SSD1351_SPI_MODE 3
+#define SSD1351_CS_PIN GP13
+#define SSD1351_DC_PIN GP12
+#define SSD1351_RST_PIN NO_PIN
+#undef QUANTUM_PAINTER_DISPLAY_TIMEOUT
+#define QUANTUM_PAINTER_DISPLAY_TIMEOUT SYSTEM_TIMEOUT
+#undef QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS
+#define QUANTUM_PAINTER_SUPPORTS_NATIVE_COLORS TRUE
 
 // RGB config
-#define RGB_EN_PIN GP21
 #ifdef RGB_MATRIX_ENABLE
+#   undef RGB_MATRIX_TIMEOUT
+#   define RGB_MATRIX_TIMEOUT SYSTEM_TIMEOUT
+#   define RGB_EN_PIN GP21
 #   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
 #   define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
 #   define WS2812_DI_PIN GP22

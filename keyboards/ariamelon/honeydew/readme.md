@@ -22,3 +22,8 @@ Enter the bootloader in 3 ways:
 * **Physical dip switch**: Unplug the keyboard, move the DIP switch next to the USB-C port to the on position then plug in the keyboard. Move the DIP switch back afterwards to use it normally again.
 * **Physical reset button**: Double press the reset button on the bottom of the keyboard.
 * **Dip switch + reset button**: Move the DIP switch next to the USB-C port to the on position then press the reset button. Move the DIP switch back afterwards to use it normally again.
+
+## Changelog
+* 28/06/2023: Modified USB PD code to work like tzarc's. Added working ADC implementation. Started adding QP support.
+* 26/06/2023: Fixed matrix code (thanks elpekenin and drfaustroll!). Fixed RGB.
+* 25/06/2023: Initial dev firmware uploaded.
