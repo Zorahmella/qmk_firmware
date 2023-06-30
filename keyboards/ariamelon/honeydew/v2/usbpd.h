@@ -31,12 +31,6 @@ typedef struct kb_runtime_config {
     usbpd_allowance_t current_setting : 2;
 } kb_runtime_config;
 
-// Structure to hold ADC values
-typedef struct adc_values {
-    float volts;
-    float amps;
-} adc_values;
-
 // Function to get PD allowance
 usbpd_allowance_t usbpd_get_allowance(void);
 
@@ -45,5 +39,3 @@ bool usbpd_update(void);
 
 // Function to output USB PD state as a string
 const char* usbpd_str(usbpd_allowance_t allowance);
-
-extern painter_device_t display;

@@ -39,8 +39,9 @@
 // ADC pin settings
 #define VSEN_PIN GP29
 #define ISEN_PIN GP28
-#define VSEN_MAX 5.0 // 5.0V
-#define ISEN_MAX 3.0 // 3A
+#define VSEN_MAX 5000 // 5000mV
+#define VSEN_CAL 1.111
+#define ISEN_MAX 3000 // 3000mA
 #define ADC_MAX 1023 // 10 bit ADC max number
 
 // TUSB321 pin settings

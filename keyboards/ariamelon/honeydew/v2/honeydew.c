@@ -222,8 +222,8 @@ adc_values adc_update(adc_values next_adc_state){
     temp_adc_state.amps = analogReadPin(ISEN_PIN);
 
     // Convert raw values into actual values
-    next_adc_state.volts = temp_adc_state.volts / ADC_MAX * VSEN_MAX;
-    next_adc_state.amps = temp_adc_state.amps / ADC_MAX * ISEN_MAX;
+    next_adc_state.volts = temp_adc_state.volts * (VSEN_MAX * VSEN_CAL) / ADC_MAX;
+    next_adc_state.amps = temp_adc_state.amps * ISEN_MAX / ADC_MAX;
 
     return next_adc_state;
 }
@@ -231,7 +231,7 @@ adc_values adc_update(adc_values next_adc_state){
 // Fetch ADC values once per second
 uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg) {
     current_adc_state = adc_update(current_adc_state);
-    dprintf("Voltage = %.2fV, Current draw = %.2fA\n", current_adc_state.volts, current_adc_state.amps);
+    dprintf("Voltage = %dmV, Current draw = %dmA\n", current_adc_state.volts, current_adc_state.amps);
     return 1000;
 }
 

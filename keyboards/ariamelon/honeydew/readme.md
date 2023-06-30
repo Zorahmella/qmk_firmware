@@ -24,6 +24,7 @@ Enter the bootloader in 3 ways:
 * **Dip switch + reset button**: Move the DIP switch next to the USB-C port to the on position then press the reset button. Move the DIP switch back afterwards to use it normally again.
 
 ## Changelog
+* 30/06/2023: Updated ADC code to not use floats.
 * 28/06/2023: Modified USB PD code to work like tzarc's. Added working ADC implementation. Started adding QP support.
 * 26/06/2023: Fixed matrix code (thanks elpekenin and drfaustroll!). Fixed RGB.
 * 25/06/2023: Initial dev firmware uploaded.

@@ -15,6 +15,12 @@
  */
 #pragma once
 
+// Structure to hold ADC values
+typedef struct adc_values {
+    uint16_t volts;
+    uint16_t amps;
+} adc_values;
+
 // Functions to update ADC
 adc_values adc_update(adc_values next_adc_state);
 uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg);
