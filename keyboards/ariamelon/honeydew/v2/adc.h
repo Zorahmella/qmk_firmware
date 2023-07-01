@@ -21,6 +21,11 @@ typedef struct adc_values {
     uint16_t amps;
 } adc_values;
 
-// Functions to update ADC
-adc_values adc_update(adc_values next_adc_state);
+adc_values adc_update(adc_values next_adc_state); // Function to update ADC
+uint16_t adc_ema(uint16_t in, uint16_t average, uint16_t alpha); // Exponential moving average function
+
+// Deferred functions for getting ADC values and printing them
 uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg);
+uint32_t adc_print_values(uint32_t trigger_time, void *cb_arg);
+
+adc_values current_adc_state; // Current ADC values

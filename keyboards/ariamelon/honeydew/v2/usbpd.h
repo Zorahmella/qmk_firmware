@@ -16,9 +16,6 @@
 
 #pragma once
 
-#include "quantum.h"
-#include "qp.h"
-
 // Enumerated values for USB PD states
 typedef enum {
     USBPD_500MA,
@@ -39,3 +36,6 @@ bool usbpd_update(void);
 
 // Function to output USB PD state as a string
 const char* usbpd_str(usbpd_allowance_t allowance);
+
+kb_runtime_config kb_state; // USB PD state
+float kb_scale; // USB PD RGB brightness scale

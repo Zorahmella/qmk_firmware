@@ -5,5 +5,7 @@ CUSTOM_MATRIX = lite
 SRC += \
 	matrix.c\
 	analog.c\
-	honeydew.c
+	honeydew.c\
+	usbpd.c\
+	adc.c
 QUANTUM_LIB_SRC += spi_master.c

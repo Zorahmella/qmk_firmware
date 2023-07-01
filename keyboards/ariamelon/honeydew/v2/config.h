@@ -39,10 +39,12 @@
 // ADC pin settings
 #define VSEN_PIN GP29
 #define ISEN_PIN GP28
-#define VSEN_MAX 5000 // 5000mV
-#define VSEN_CAL 1.111
-#define ISEN_MAX 3000 // 3000mA
+#define VSEN_MAX 5000 // Max value of ADC reading in mV
+#define ISEN_MAX 3000 // Max value of ADC reading in mA
+#define VSEN_CAL 1.111 // ADC error calibration value
 #define ADC_MAX 1023 // 10 bit ADC max number
+#define ADC_EMA_ALPHA(x) ((uint16_t)(x * 65535)) // Alpha value of exponential moving average
+#define ADC_UPDATE_TIME 10 // Time between ADC updates in ms
 
 // TUSB321 pin settings
 #define TUSB_OUT1_PIN GP27
