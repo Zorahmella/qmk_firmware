@@ -16,16 +16,16 @@
 #pragma once
 
 // Structure to hold ADC values
-typedef struct adc_values {
+typedef struct adc_values_t {
     uint16_t volts;
     uint16_t amps;
-} adc_values;
+} adc_values_t;
 
-adc_values adc_update(adc_values next_adc_state); // Function to update ADC
+adc_values_t adc_update(adc_values_t next_adc_state); // Function to update ADC
 uint16_t adc_ema(uint16_t in, uint16_t average, uint16_t alpha); // Exponential moving average function
 
 // Deferred functions for getting ADC values and printing them
 uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg);
 uint32_t adc_print_values(uint32_t trigger_time, void *cb_arg);
 
-adc_values current_adc_state; // Current ADC values
+adc_values_t current_adc_state; // Current ADC values

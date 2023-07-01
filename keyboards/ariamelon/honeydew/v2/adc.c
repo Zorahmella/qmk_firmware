@@ -23,8 +23,8 @@
 #endif
 
 // Get current ADC values
-adc_values adc_update(adc_values next_adc_state){
-    adc_values temp_adc_state;
+adc_values_t adc_update(adc_values_t next_adc_state){
+    adc_values_t temp_adc_state;
 
     // Reading in raw values from ADC
     temp_adc_state.volts = analogReadPin(VSEN_PIN);
@@ -52,7 +52,7 @@ uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg) {
 
 // Print ADC values once per second
 uint32_t adc_print_values(uint32_t trigger_time, void *cb_arg) {
-    adc_values temp_adc_state;
+    adc_values_t temp_adc_state;
 
     // Convert raw values into actual values
     temp_adc_state.volts = current_adc_state.volts * (VSEN_MAX * VSEN_CAL) / ADC_MAX;
