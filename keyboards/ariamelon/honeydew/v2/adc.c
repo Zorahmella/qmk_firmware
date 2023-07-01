@@ -50,10 +50,11 @@ uint32_t adc_get_values(uint32_t trigger_time, void *cb_arg) {
     return ADC_UPDATE_TIME;
 }
 
-// Print ADC values once per 1 second
+// Print ADC values once per second
 uint32_t adc_print_values(uint32_t trigger_time, void *cb_arg) {
-    // Convert raw values into actual values
     adc_values temp_adc_state;
+
+    // Convert raw values into actual values
     temp_adc_state.volts = current_adc_state.volts * (VSEN_MAX * VSEN_CAL) / ADC_MAX;
     temp_adc_state.amps = current_adc_state.amps * ISEN_MAX / ADC_MAX;
 
