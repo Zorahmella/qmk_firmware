@@ -7,6 +7,9 @@
             { "pin_a": "GP10", "pin_b": "GP9", "resolution": 2 }
         ]
     },
+    "ws2812": {
+        "pin": "GP22"
+    },
     "layouts": {
         "LAYOUT": {
             "layout": [

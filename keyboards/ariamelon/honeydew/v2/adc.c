@@ -31,17 +31,17 @@ adc_values_t adc_update(adc_values_t next_adc_state){
     temp_adc_state.amps = analogReadPin(ISEN_PIN);
 
     // Take exponential moving average of ADC values
-    next_adc_state.volts = adc_ema(temp_adc_state.volts, next_adc_state.volts, ADC_EMA_ALPHA(0.05));
-    next_adc_state.amps = adc_ema(temp_adc_state.amps, next_adc_state.amps, ADC_EMA_ALPHA(0.05));
+    next_adc_state.volts = adc_ema(temp_adc_state.volts, next_adc_state.volts, ADC_EMA_ALPHA);
+    next_adc_state.amps = adc_ema(temp_adc_state.amps, next_adc_state.amps, ADC_EMA_ALPHA);
 
     return next_adc_state;
 }
 
 // Exponential moving average
-uint16_t adc_ema(uint16_t in, uint16_t average, uint16_t alpha){
+uint16_t adc_ema(uint16_t in, uint16_t average, float alpha){
     uint32_t tmp;
-    tmp = (uint32_t)in * alpha + (uint32_t)average * (65536 - alpha);
-    return (uint16_t)((tmp + 65536) / 65536);
+    tmp = (uint32_t)in * (1000000 * alpha) + (uint32_t)average * (1000000 - (1000000 * alpha));
+    return (uint16_t)((tmp + 500000) / 1000000);
 }
 
 // Fetch ADC values based on ADC_UPDATE_TIME

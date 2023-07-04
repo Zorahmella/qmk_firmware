@@ -43,8 +43,8 @@
 #define ISEN_MAX 3000 // Max value of ADC reading in mA
 #define VSEN_CAL 1.111 // ADC error calibration value
 #define ADC_MAX 1023 // 10 bit ADC max number
-#define ADC_EMA_ALPHA(x) ((uint16_t)(x * 65535)) // Alpha value of exponential moving average
-#define ADC_UPDATE_TIME 10 // Time between ADC updates in ms
+#define ADC_EMA_ALPHA 0.05 // Alpha value of exponential moving average
+#define ADC_UPDATE_TIME 1 // Time between ADC updates in ms
 
 // TUSB321 pin settings
 #define TUSB_OUT1_PIN GP27
@@ -89,9 +89,6 @@
 #   undef RGB_MATRIX_TIMEOUT
 #   define RGB_MATRIX_TIMEOUT SYSTEM_TIMEOUT
 #   define RGB_EN_PIN GP21
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 255
-#   define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#   define WS2812_DI_PIN GP22
 #   define RGB_MATRIX_CENTER { 112, 80 }
 #   define RGB_MATRIX_LED_COUNT 72
 #endif
