@@ -1,4 +1,4 @@
-/* Copyright 2023 Ariamelon
+/* Copyright 2023 Aria Tso (@Ariamelon)
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -16,38 +16,34 @@
 
 #pragma once
 
-// Reset button
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET
-#define RP2040_BOOTLOADER_DOUBLE_TAP_RESET_TIMEOUT 500
+#define SYSTEM_TIMEOUT 30000
 
 // SPI settings
-#define SPI_DRIVER SPID0
-#define SPI_SCK_PIN GP18
-#define SPI_MISO_PIN GP16
-#define SPI_MOSI_PIN GP19
+#define SPI_DRIVER SPID1
+#define SPI_SCK_PIN A5
+#define SPI_MISO_PIN A6
+#define SPI_MOSI_PIN A7
 
 // Pointing device settings
-#define POINTING_DEVICE_CS_PIN GP17
-#define MOUSE_EXTENDED_REPORT
+#define POINTING_DEVICE_CS_PIN A4
 
 // Cirque settings
 #define POINTING_DEVICE_TASK_THROTTLE_MS 10
 #define POINTING_DEVICE_DRIVER cirque_pinnacle_spi
-#define POINTING_DEVICE_ROTATION_90
+#define POINTING_DEVICE_ROTATION_270
 #define CIRQUE_PINNACLE_POSITION_MODE CIRQUE_PINNACLE_ABSOLUTE_MODE
 #define CIRQUE_PINNACLE_TAP_ENABLE
 #undef CIRQUE_PINNACLE_ATTENUATION
 #define CIRQUE_PINNACLE_ATTENUATION EXTREG__TRACK_ADCCONFIG__ADC_ATTENUATE_3X
 
-/*
-// QP OLED settings
-#define DISPLAY_RST GP
-#define DISPLAY_CS GP
-#define DISPLAY_DC GP
-*/
-
 // RGB config
 #ifdef RGB_MATRIX_ENABLE
+#   define WS2812_PWM_DRIVER PWMD1
+#   define WS2812_PWM_CHANNEL 1
+#   define WS2812_PWM_PAL_MODE 2
+#   define WS2812_DMA_STREAM STM32_DMA1_STREAM5
+#   define WS2812_DMA_CHANNEL 5
+#   define WS2812_EXTERNAL_PULLUP
 #   define RGB_DISABLE_WHEN_USB_SUSPENDED
 #   define RGB_MATRIX_LED_FLUSH_LIMIT 16
 #   define RGB_MATRIX_FRAMEBUFFER_EFFECTS
@@ -55,9 +51,10 @@
 #   define RGB_MATRIX_DEFAULT_HUE 0
 #   define RGB_MATRIX_DEFAULT_SAT 0
 #   define RGB_MATRIX_DEFAULT_MODE RGB_MATRIX_SOLID_COLOR
-#   define WS2812_PIO_USE_PIO0
-#   define RGB_MATRIX_MAXIMUM_BRIGHTNESS 100
-#   define RGB_MATRIX_DEFAULT_VAL RGB_MATRIX_MAXIMUM_BRIGHTNESS
-#   define RGB_MATRIX_CENTER { 112, 80 }
-#   define RGB_MATRIX_LED_COUNT 69
+#   define RGB_BRIGHTNESS_SCALAR 0.45
+#   undef RGB_MATRIX_TIMEOUT
+#   define RGB_MATRIX_TIMEOUT SYSTEM_TIMEOUT
+#   define RGB_EN_PIN GP11
+#   define RGB_MATRIX_CENTER { 112, 29 }
+#   define RGB_MATRIX_LED_COUNT 72
 #endif

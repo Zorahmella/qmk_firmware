@@ -1,6 +1,9 @@
 {
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "usb": {
-        "device_version": "1.0.0",
+        "device_version": "1.0.0"
     },
     "encoder": {
         "rotary": [
@@ -80,7 +83,10 @@
             ]
         }
     },
-
+    "ws2812": {
+        "pin": "GP11",
+        "driver": "vendor"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "layout": [

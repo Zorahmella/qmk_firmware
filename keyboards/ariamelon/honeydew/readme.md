@@ -17,13 +17,10 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader in 3 ways:
-
-* **Physical dip switch**: Unplug the keyboard, move the DIP switch next to the USB-C port to the on position then plug in the keyboard. Move the DIP switch back afterwards to use it normally again.
-* **Physical reset button**: Double press the reset button on the bottom of the keyboard.
-* **Dip switch + reset button**: Move the DIP switch next to the USB-C port to the on position then press the reset button. Move the DIP switch back afterwards to use it normally again.
+Enter the bootloader by holding down the reset button on the bottom of the keyboard.
 
 ## Changelog
+* 07/09/2023: Added V3 support. Moved some of the RP2040-specific settings to the individual version folders. 
 * 04/07/2023: Moved some RGB matrix settings to info.json. Changed ADC EMA alpha definition and EMA equation. 
 * 01/07/2023: Separated V2 USBPD and ADC functions into different files. Added exponential moving average to ADC functionality to get better accuracy. Renamed adc_values to adc_values_t for better clarity.
 * 30/06/2023: Updated V2 ADC code to not use floats.
