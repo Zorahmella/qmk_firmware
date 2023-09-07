@@ -9,3 +9,6 @@ SRC += \
 	usbpd.c\
 	adc.c
 QUANTUM_LIB_SRC += spi_master.c
+QUANTUM_PAINTER_ENABLE = yes
+QUANTUM_PAINTER_DRIVERS += ssd1351_spi
+ENCODER_MAP_ENABLE = yes

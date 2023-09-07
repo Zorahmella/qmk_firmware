@@ -1,4 +1,7 @@
 {
+    "processor": "RP2040",
+    "bootloader": "rp2040",
+    "board": "GENERIC_RP_RP2040",
     "usb": {
         "device_version": "2.0.0"
     },
@@ -6,9 +9,6 @@
         "rotary": [
             { "pin_a": "GP10", "pin_b": "GP9", "resolution": 2 }
         ]
-    },
-    "ws2812": {
-        "pin": "GP22"
     },
     "layouts": {
         "LAYOUT": {
@@ -80,7 +80,10 @@
             ]
         }
     },
-
+    "ws2812": {
+        "pin": "GP22",
+        "driver": "vendor"
+    },
     "rgb_matrix": {
         "driver": "WS2812",
         "max_brightness": 32,
