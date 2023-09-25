@@ -85,8 +85,7 @@
         "driver": "vendor"
     },
     "rgb_matrix": {
-        "driver": "WS2812",
-        "max_brightness": 32,
+        "max_brightness": 255,
         "layout": [
             { "flags": 1, "matrix": [0, 0], "x": 20, "y": 0 },
             { "flags": 4, "matrix": [0, 1], "x": 34, "y": 4 },

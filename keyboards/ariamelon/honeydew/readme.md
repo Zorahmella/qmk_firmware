@@ -7,19 +7,20 @@
 
 Make example for this keyboard (after setting up your build environment):
 
-    make ariamelon/honeydew:default
+    make ariamelon/honeydew/v3:default
 
 Flashing example for this keyboard:
 
-    make ariamelon/honeydew:default:flash
+    make ariamelon/honeydew/v3:default:flash
 
 See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_tools) and the [make instructions](https://docs.qmk.fm/#/getting_started_make_guide) for more information. Brand new to QMK? Start with our [Complete Newbs Guide](https://docs.qmk.fm/#/newbs).
 
 ## Bootloader
 
-Enter the bootloader by holding down the reset button on the bottom of the keyboard.
+Enter the bootloader by holding down the reset button on the bottom of the keyboard, while the keyboard is plugged in, for at least 5 seconds before releasing.
 
 ## Changelog
+* 29/09/2023: Finalized V3 firmware.
 * 07/09/2023: Added V3 support. Moved some of the RP2040-specific settings to the individual version folders. 
 * 04/07/2023: Moved some RGB matrix settings to info.json. Changed ADC EMA alpha definition and EMA equation. 
 * 01/07/2023: Separated V2 USBPD and ADC functions into different files. Added exponential moving average to ADC functionality to get better accuracy. Renamed adc_values to adc_values_t for better clarity.
