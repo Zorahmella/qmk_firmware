@@ -17,14 +17,8 @@ See the [build environment setup](https://docs.qmk.fm/#/getting_started_build_to
 
 ## Bootloader
 
-Enter the bootloader by holding down the reset button on the bottom of the keyboard, while the keyboard is plugged in, for at least 5 seconds before releasing.
+Enter the bootloader in 3 ways:
 
-## Changelog
-* 29/09/2023: Finalized V3 firmware.
-* 07/09/2023: Added V3 support. Moved some of the RP2040-specific settings to the individual version folders. 
-* 04/07/2023: Moved some RGB matrix settings to info.json. Changed ADC EMA alpha definition and EMA equation. 
-* 01/07/2023: Separated V2 USBPD and ADC functions into different files. Added exponential moving average to ADC functionality to get better accuracy. Renamed adc_values to adc_values_t for better clarity.
-* 30/06/2023: Updated V2 ADC code to not use floats.
-* 28/06/2023: Modified V2 USB PD code to work like tzarc's. Added working ADC implementation. Started adding QP support.
-* 26/06/2023: Fixed V2 matrix code (thanks elpekenin and drfaustroll!). Fixed RGB.
-* 25/06/2023: Initial dev firmware uploaded.
+* **Bootmagic reset**: Hold down the key at (0,0) in the matrix (usually the top left key or Escape) and plug in the keyboard
+* **Physical reset button**: Press the button on the back of the PCB for a few seconds
+* **Keycode in layout**: Press the key mapped to `QK_BOOT` if it is available

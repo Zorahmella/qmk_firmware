@@ -9,6 +9,10 @@ enum keymap_layers {
     _CONFIG,
 };
 
+enum custom_keycodes {
+    PRNTSCR = SAFE_RANGE,
+};
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_BASE] = LAYOUT(
@@ -24,7 +28,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         _______, _______, KC_PGUP, _______, _______, _______,                                       _______, _______, _______, KC_PGUP, _______, _______,
         _______, KC_HOME, KC_PGDN, KC_END , KC_LBRC, KC_PLUS,                                       KC_MINS, KC_RBRC, KC_HOME, KC_PGDN, KC_END , _______,
         _______, _______, _______, _______, KC_LCBR, KC_EQL ,      KC_MPRV, KC_MPLY, KC_MNXT,       KC_UNDS, KC_RCBR, _______, _______, _______, _______,
-        _______, _______, _______,      _______, KC_CAPS, _______,          KC_MUTE,          _______, _______, _______,       _______, _______, _______
+        PRNTSCR, _______, _______,      _______, KC_CAPS, _______,          KC_MUTE,          _______, _______, _______,       _______, _______, _______
     ),
 
     [_CONFIG] = LAYOUT(
@@ -44,3 +48,21 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_CONFIG] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(RGB_VAI, RGB_VAD)},
 };
 #endif
+
+// Hotkeys and macros
+bool process_record_user(uint16_t keycode, keyrecord_t *record){
+    switch (keycode) {
+        // Snipping tool macro
+        case PRNTSCR:
+            if (record->event.pressed) {
+                register_code(KC_LGUI);
+                register_code(KC_LSFT);
+                tap_code(KC_S);
+                unregister_code(KC_LSFT);
+                unregister_code(KC_LGUI);
+            }
+            return true;
+        default:
+            return true;
+    }
+}
