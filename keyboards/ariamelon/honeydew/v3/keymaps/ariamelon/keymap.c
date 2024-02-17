@@ -11,6 +11,8 @@ enum keymap_layers {
 
 enum custom_keycodes {
     PRNTSCR = SAFE_RANGE,
+    CPI_PLUS,
+    CPI_MINUS,
 };
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
@@ -45,7 +47,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_WH_L, KC_WH_R), ENCODER_CCW_CW(KC_WH_U, KC_WH_D)},
     [_FN] =     { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)), ENCODER_CCW_CW(S(KC_UP), S(KC_DOWN))},
-    [_CONFIG] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(RGB_VAI, RGB_VAD)},
+    [_CONFIG] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(CPI_PLUS, CPI_MINUS)},
 };
 #endif
 
@@ -61,8 +63,21 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 unregister_code(KC_LSFT);
                 unregister_code(KC_LGUI);
             }
-            return true;
-        default:
-            return true;
+            break;
+        case CPI_PLUS:
+            if (record->event.pressed) {
+                if (pointing_device_get_cpi() <= PMW3360_MAX_CPI){
+                    pointing_device_set_cpi(pointing_device_get_cpi()+100);
+                }
+            }
+            break;
+        case CPI_MINUS:
+            if (record->event.pressed) {
+                if (pointing_device_get_cpi() >= PMW3360_MIN_CPI){
+                    pointing_device_set_cpi(pointing_device_get_cpi()-100);
+                }
+            }
+            break;
     }
+    return true;
 }
