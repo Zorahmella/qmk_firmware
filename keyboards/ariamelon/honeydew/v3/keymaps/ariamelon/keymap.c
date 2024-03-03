@@ -51,6 +51,10 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 };
 #endif
 
+void keyboard_post_init_user(void){
+    pointing_device_set_cpi(PMW3360_DEFAULT_CPI);
+}
+
 // Hotkeys and macros
 bool process_record_user(uint16_t keycode, keyrecord_t *record){
     switch (keycode) {
@@ -64,6 +68,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 unregister_code(KC_LGUI);
             }
             break;
+
+        // CPI adjust code
         case CPI_PLUS:
             if (record->event.pressed) {
                 if (pointing_device_get_cpi() <= PMW3360_MAX_CPI){
