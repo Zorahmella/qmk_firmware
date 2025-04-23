@@ -1,4 +1,4 @@
-/* Copyright 2023 Ariamelon
+/* Copyright 2023 Zorahmella
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by

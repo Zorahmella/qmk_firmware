@@ -1,7 +1,7 @@
 {
-    "manufacturer": "Ariamelon",
+    "manufacturer": "Zorahmella",
     "keyboard_name": "Honeydew",
-    "maintainer": "Ariamelon",
+    "maintainer": "Zorahmella",
     "diode_direction": "COL2ROW",
     "features": {
         "audio": false,
@@ -65,7 +65,7 @@
         },
         "driver": "ws2812"
     },
-    "url": "https://github.com/Ariamelon/Honeydew/",
+    "url": "https://github.com/Zorahmella/Honeydew/",
     "usb": {
         "pid": "0x4172",
         "vid": "0x486F"
