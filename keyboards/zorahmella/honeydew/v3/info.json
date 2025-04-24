@@ -3,7 +3,7 @@
     "bootloader": "stm32-dfu",
     "encoder": {
         "rotary": [
-            {"pin_a": "A2", "pin_b": "A3", "resolution": 1},
+            {"pin_a": "A2", "pin_b": "A3", "resolution": 2},
             {"pin_a": "B5", "pin_b": "B6", "resolution": 2}
         ]
     },

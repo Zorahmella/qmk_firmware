@@ -37,7 +37,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
         QK_BOOT, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, EE_CLR,
         XXXXXXX, XXXXXXX, RGB_HUI, RGB_SAI, RGB_SPI, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         _______, XXXXXXX, RGB_HUD, RGB_SAD, RGB_SPD, XXXXXXX,                                       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
-        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      RGB_VAD, RGB_TOG, RGB_VAI,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
+        XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, RGB_TOG, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX, XXXXXXX,
         XXXXXXX, XXXXXXX, XXXXXXX,      XXXXXXX, XXXXXXX, XXXXXXX,          XXXXXXX,          XXXXXXX, XXXXXXX, XXXXXXX,       XXXXXXX, XXXXXXX, XXXXXXX
     )
 };
@@ -46,8 +46,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 #if defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
     [_BASE] =   { ENCODER_CCW_CW(KC_WH_L, KC_WH_R), ENCODER_CCW_CW(KC_WH_U, KC_WH_D)},
-    [_FN] =     { ENCODER_CCW_CW(C(KC_Z), C(KC_Y)), ENCODER_CCW_CW(S(KC_UP), S(KC_DOWN))},
-    [_CONFIG] = { ENCODER_CCW_CW(RGB_RMOD, RGB_MOD), ENCODER_CCW_CW(CPI_PLUS, CPI_MINUS)},
+    [_FN] =     { ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(C(KC_Y), C(KC_Z))},
+    [_CONFIG] = { ENCODER_CCW_CW(RGB_VAD, RGB_VAI), ENCODER_CCW_CW(RGB_RMOD, RGB_MOD)},
 };
 #endif
 
@@ -66,22 +66,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record){
                 tap_code(KC_S);
                 unregister_code(KC_LSFT);
                 unregister_code(KC_LGUI);
-            }
-            break;
-
-        // CPI adjust code
-        case CPI_PLUS:
-            if (record->event.pressed) {
-                if (pointing_device_get_cpi() <= PMW3360_MAX_CPI){
-                    pointing_device_set_cpi(pointing_device_get_cpi()+100);
-                }
-            }
-            break;
-        case CPI_MINUS:
-            if (record->event.pressed) {
-                if (pointing_device_get_cpi() >= PMW3360_MIN_CPI){
-                    pointing_device_set_cpi(pointing_device_get_cpi()-100);
-                }
             }
             break;
     }
